@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -15,10 +14,13 @@ public interface Sort {
     String COMMON_RESOURCES_PATH = "Task2/src/main/resources/";
 
     default String[] readFile(String name) {
-        StringBuilder sb = new StringBuilder();
-        String fullFileName = Paths.get(COMMON_RESOURCES_PATH + name).toAbsolutePath().toString();
+        if (isBlank(name)) {
+            throw new IllegalArgumentException("File name cannot be null");
+        }
 
-        try(Stream<String> lines = Files.lines(Path.of(fullFileName), StandardCharsets.UTF_8)) {
+        StringBuilder sb = new StringBuilder();
+
+        try(Stream<String> lines = Files.lines(Path.of(getFullPath(name)), StandardCharsets.UTF_8)) {
             lines.forEach(sb::append);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
@@ -28,17 +30,24 @@ public interface Sort {
     }
 
     default void writeFile(String outputFileName, List<String> lines) {
+        if (isBlank(outputFileName)) {
+            throw new IllegalArgumentException("File name cannot be null");
+        }
+
         try {
-            Files.write(Path.of(Paths.get(COMMON_RESOURCES_PATH + outputFileName).toAbsolutePath().toString()), lines);
+            Files.write(Path.of(getFullPath(outputFileName)), lines);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
 
+    private String getFullPath(String p) {
+        return Paths.get(COMMON_RESOURCES_PATH + p).toAbsolutePath().toString();
+    }
     void sort(String[] text);
 
     default String onlyAlphabeticAndDigit(String s) {
-        if ((s == null) || (s.isBlank())) {
+        if (isBlank(s)) {
             return s;
         }
 

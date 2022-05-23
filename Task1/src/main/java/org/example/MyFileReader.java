@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -18,7 +17,7 @@ public class MyFileReader {
     private static final String COMMON_RESOURCES_PATH = "Task1/src/main/resources/";
     private String fileName;
     private String outputFileName;
-    protected String fileBody;
+    private String fileBody;
 
     public MyFileReader(String fileName, String outputFileName) {
         setFileName(fileName);
