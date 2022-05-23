@@ -44,6 +44,7 @@ public interface Sort {
     private String getFullPath(String p) {
         return Paths.get(COMMON_RESOURCES_PATH + p).toAbsolutePath().toString();
     }
+
     void sort(String[] text);
 
     default String onlyAlphabeticAndDigit(String s) {
