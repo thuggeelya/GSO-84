@@ -20,6 +20,9 @@ public class MyFileReader {
     private String fileBody;
 
     public MyFileReader(String fileName, String outputFileName) {
+        if (isBlank(fileName) || isBlank(outputFileName)) {
+            throw new IllegalArgumentException("File name cannot be null");
+        }
         setFileName(fileName);
         this.outputFileName = outputFileName;
     }
@@ -101,6 +104,10 @@ public class MyFileReader {
                     }
                 })
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    private boolean isBlank(String s) {
+        return (s == null) || (s.isBlank());
     }
 
     @Override
