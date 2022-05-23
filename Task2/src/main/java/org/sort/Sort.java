@@ -5,7 +5,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public interface Sort {
 
@@ -15,10 +18,10 @@ public interface Sort {
         StringBuilder sb = new StringBuilder();
         String fullFileName = Paths.get(COMMON_RESOURCES_PATH + name).toAbsolutePath().toString();
 
-        try {
-            Files.readAllLines(Path.of(fullFileName), StandardCharsets.UTF_8).forEach(sb::append);
+        try(Stream<String> lines = Files.lines(Path.of(fullFileName), StandardCharsets.UTF_8)) {
+            lines.forEach(sb::append);
         } catch (IOException e) {
-            System.out.println("Something went wrong..");
+            Logger.getGlobal().severe("Something went wrong: " + e);
         }
 
         return sb.toString().split(" ");
@@ -28,7 +31,7 @@ public interface Sort {
         try {
             Files.write(Path.of(Paths.get(COMMON_RESOURCES_PATH + outputFileName).toAbsolutePath().toString()), lines);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
 

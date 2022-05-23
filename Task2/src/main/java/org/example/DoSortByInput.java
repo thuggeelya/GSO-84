@@ -3,6 +3,7 @@ package org.example;
 import org.sort.Sort;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Logger;
 
 public class DoSortByInput {
 
@@ -12,7 +13,7 @@ public class DoSortByInput {
             Sort instance = (Sort) c.getDeclaredConstructor().newInstance();
             instance.sort(instance.readFile(fileName));
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            System.out.println("Something went wrong..");
+            Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
 }

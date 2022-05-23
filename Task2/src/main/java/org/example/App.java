@@ -10,6 +10,6 @@ public class App {
         sort("input.txt", "org.sort.SortAlphabeticTurned");
         sort("input.txt", "org.sort.SortAlphabeticSorted");
         sort("input.txt", "org.sort.SortFirstLetterCodeDigitsSum");
-        sort("input.txt", "no class");
+//        sort("input.txt", "no class");
     }
 }

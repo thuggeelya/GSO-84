@@ -7,8 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyFileReader {
 
@@ -43,11 +46,10 @@ public class MyFileReader {
         StringBuilder sb = new StringBuilder();
         String fullFileName = getFullFileName(this.fileName);
 
-        try {
-            Files.readAllLines(Path.of(fullFileName), StandardCharsets.UTF_8).forEach(sb::append);
+        try(Stream<String> lines = Files.lines(Path.of(fullFileName), StandardCharsets.UTF_8)) {
+            lines.forEach(sb::append);
         } catch (IOException e) {
-//            e.printStackTrace();
-            System.out.println("Something went wrong..");
+            Logger.getGlobal().severe("Something went wrong: " + e);
         }
 
         return sb.toString();
@@ -67,9 +69,9 @@ public class MyFileReader {
         });
 
         try {
-            Files.write(Path.of(getFullFileName(this.outputFileName)), lines);
+            Files.write(Path.of(getFullFileName(this.outputFileName)), lines, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
 
