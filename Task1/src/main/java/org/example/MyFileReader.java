@@ -69,7 +69,7 @@ public class MyFileReader {
         });
 
         try {
-            Files.write(Path.of(getFullFileName(this.outputFileName)), lines, StandardOpenOption.WRITE);
+            Files.write(Path.of(getFullFileName(this.outputFileName)), lines);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }
