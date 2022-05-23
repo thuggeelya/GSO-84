@@ -23,6 +23,7 @@ public class MyFileReader {
         if (isBlank(fileName) || isBlank(outputFileName)) {
             throw new IllegalArgumentException("File name cannot be null");
         }
+
         setFileName(fileName);
         this.outputFileName = outputFileName;
     }
