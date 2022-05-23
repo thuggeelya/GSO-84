@@ -47,9 +47,8 @@ public class MyFileReader {
 
     private String readFile() {
         StringBuilder sb = new StringBuilder();
-        String fullFileName = getFullFileName(this.fileName);
 
-        try(Stream<String> lines = Files.lines(Path.of(fullFileName), StandardCharsets.UTF_8)) {
+        try(Stream<String> lines = Files.lines(Path.of(getFullFileName(this.fileName)), StandardCharsets.UTF_8)) {
             lines.forEach(sb::append);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
