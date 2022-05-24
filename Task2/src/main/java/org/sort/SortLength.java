@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class SortLength implements Sort {
+public class SortLength implements FileEditable {
 
     @Override
     public void sort(String[] text) {

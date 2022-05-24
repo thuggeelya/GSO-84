@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class SortFirstLetterCodeDigitsSum implements Sort {
+public class SortFirstLetterCodeDigitsSum implements FileEditable {
 
     @Override
     public void sort(String[] text) {

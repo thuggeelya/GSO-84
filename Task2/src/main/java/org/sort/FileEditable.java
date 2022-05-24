@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public interface Sort {
+public interface FileEditable {
 
     String COMMON_RESOURCES_PATH = "Task2/src/main/resources/";
 
@@ -19,8 +19,7 @@ public interface Sort {
         }
 
         StringBuilder sb = new StringBuilder();
-
-        try(Stream<String> lines = Files.lines(Path.of(getFullPath(name)), StandardCharsets.UTF_8)) {
+        try (Stream<String> lines = Files.lines(Path.of(getFullPath(name)), StandardCharsets.UTF_8)) {
             lines.forEach(sb::append);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
