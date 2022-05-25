@@ -1,17 +1,12 @@
 package org.sort;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class SortAlphabetic implements FileEditable {
+public class SortAlphabetic implements IFileSortingStrategy {
 
     @Override
-    public void sort(String[] text) {
-        writeFile("sortAlphabetic.txt", Arrays.stream(text)
-                .sorted(Comparator.comparing(this::onlyAlphabeticAndDigit))
-                .collect(Collectors.toList())
-        );
+    public Comparator<String> sortingStrategy() {
+        return Comparator.comparing(this::onlyAlphabeticAndDigit);
     }
 }

@@ -1,19 +1,9 @@
 package org.sort;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class SortLength implements FileEditable {
-
-    @Override
-    public void sort(String[] text) {
-        writeFile("sortLength.txt", Arrays.stream(text)
-                .sorted(Comparator.comparingInt(this::getNonPunctuationalLength).thenComparing(Comparator.naturalOrder()))
-                .collect(Collectors.toList())
-        );
-    }
+public class SortLength implements IFileSortingStrategy {
 
     private int getNonPunctuationalLength(String s) {
         if (isBlank(s)) {
@@ -21,5 +11,10 @@ public class SortLength implements FileEditable {
         }
 
         return onlyAlphabeticAndDigit(s).length();
+    }
+
+    @Override
+    public Comparator<String> sortingStrategy() {
+        return Comparator.comparingInt(this::getNonPunctuationalLength).thenComparing(Comparator.naturalOrder());
     }
 }

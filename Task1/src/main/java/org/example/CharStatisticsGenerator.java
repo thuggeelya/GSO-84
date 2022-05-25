@@ -24,17 +24,13 @@ public final class CharStatisticsGenerator {
             String inputFilePath = br.readLine();
             System.out.println("Куда записывать:");
             String outputFilePath = br.readLine();
-            start(inputFilePath, outputFilePath);
+            generate(inputFilePath, outputFilePath);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
 
     public void generate(String inputFilePath, String outputFilePath) {
-        start(inputFilePath, outputFilePath);
-    }
-
-    private void start(String inputFilePath, String outputFilePath) {
         ICharStatisticsCollector collector = new CharStatisticsCollector();
         fileReader = new FileReader(inputFilePath, collector);
         fileReader.readFile();

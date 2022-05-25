@@ -2,18 +2,9 @@ package org.sort;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class SortAlphabeticSorted implements FileEditable {
-
-    @Override
-    public void sort(String[] text) {
-        writeFile("sortAlphabeticSorted.txt", Arrays.stream(text)
-                .sorted(Comparator.comparing(this::alphabetize).thenComparing(Comparator.naturalOrder()))
-                .collect(Collectors.toList())
-        );
-    }
+public class SortAlphabeticSorted implements IFileSortingStrategy {
 
     private String alphabetize(String s) {
         String alpha = onlyAlphabeticAndDigit(s);
@@ -25,5 +16,10 @@ public class SortAlphabeticSorted implements FileEditable {
         char[] wordChars = alpha.toCharArray();
         Arrays.sort(wordChars);
         return new String(wordChars);
+    }
+
+    @Override
+    public Comparator<String> sortingStrategy() {
+        return Comparator.comparing(this::alphabetize).thenComparing(Comparator.naturalOrder());
     }
 }
