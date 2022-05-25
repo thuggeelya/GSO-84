@@ -7,16 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 public class CharStatisticsWriter {
 
     private final String fullOutputFileName;
-    private final Set<CharCount> charCountSet;
+    private final List<CharCount> charCountSet;
 
-    public CharStatisticsWriter(Set<CharCount> charCountSet, String fullOutputFileName) {
+    public CharStatisticsWriter(List<CharCount> charCountSet, String fullOutputFileName) {
         this.charCountSet = charCountSet;
         this.fullOutputFileName = fullOutputFileName;
     }
@@ -38,9 +37,5 @@ public class CharStatisticsWriter {
             Logger.getGlobal().severe("Something went wrong: " + e);
             e.printStackTrace();
         }
-    }
-
-    private void writeLines(List<String> lines) {
-
     }
 }

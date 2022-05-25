@@ -31,7 +31,7 @@ public class CharCount implements Comparable<CharCount> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CharCount charCount = (CharCount) o;
-        return ch.equals(charCount.ch) && count.equals(charCount.count);
+        return ch.equals(charCount.ch) && count.get() == charCount.count.get();
     }
 
     @Override

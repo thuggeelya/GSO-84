@@ -1,6 +1,5 @@
 package org.example;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,21 +11,40 @@ import static org.junit.Assert.assertTrue;
 
 public class CharStatisticsGeneratorTest
 {
-    @Before
-    public void generate()
-    {
-        String inp = "src/test/resources/input.txt";
-        CharStatisticsGenerator.generate(inp, "src/test/resources/output1.txt");
-        CharStatisticsGenerator.generate(inp, "src/test/resources/output2.txt");
-    }
-
     @Test
     public void charStatisticsGenerator() throws IOException
     {
-        Path out1 = Path.of("src/test/resources/output1.txt");
-        Path out2 = Path.of("src/test/resources/output2.txt");
-        assertTrue(Files.exists(out1));
-        assertTrue(Files.exists(out2));
-        assertEquals(Files.size(out1), Files.size(out2));
+        String inp = "src/test/resources/input.txt";
+        String out1 = "src/test/resources/output1.txt";
+        String out2 = "src/test/resources/output2.txt";
+        CharStatisticsGenerator generator1 = new CharStatisticsGenerator();
+        CharStatisticsGenerator generator2 = new CharStatisticsGenerator();
+        generator1.generate(inp, out1);
+        generator2.generate(inp, out2);
+        Path path1 = Path.of(out1);
+        Path path2 = Path.of(out2);
+        assertTrue(Files.exists(path1));
+        assertTrue(Files.exists(path2));
+        assertEquals(generator1.getFileReader().getCollector().getMap().get('a').getCount().get(), generator2.getFileReader().getCollector().getMap().get('a').getCount().get());
+        assertEquals(generator1.getFileReader().getCollector().getMap().get('I').getCount().get(), generator2.getFileReader().getCollector().getMap().get('I').getCount().get());
+        deleteFiles(path1, path2);
+    }
+
+    @Test
+    public void tempFileStatisticsGenerator() throws IOException
+    {
+        String prefix = "src/test/resources/";
+        TempCollector tempCollector = new TempCollector();
+        CharStatisticsGenerator generator = new CharStatisticsGenerator();
+        String outputPath = prefix + "/tempOutput.txt";
+        generator.generate(prefix + tempCollector.getTempFile().getFileName().toString(), outputPath);
+        assertEquals(tempCollector.getCollector(), generator.getFileReader().getCollector());
+        deleteFiles(tempCollector.getTempFile(), Path.of(outputPath));
+    }
+
+    private void deleteFiles(Path... paths) throws IOException {
+        for (Path p : paths) {
+            Files.deleteIfExists(p);
+        }
     }
 }

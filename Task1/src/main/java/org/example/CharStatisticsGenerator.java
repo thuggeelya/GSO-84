@@ -7,12 +7,18 @@ import java.util.logging.Logger;
 
 public final class CharStatisticsGenerator {
 
-    /*
-    Task1/src/main/resources/input.txt
-    Task1/src/main/resources/output.txt
-     */
+    private FileReader fileReader;
+    private CharStatisticsWriter charStatisticsWriter;
 
-    public static void generate() {
+    public FileReader getFileReader() {
+        return fileReader;
+    }
+
+    public CharStatisticsWriter getCharStatisticsWriter() {
+        return charStatisticsWriter;
+    }
+
+    public void generate() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Откуда считывать:");
             String inputFilePath = br.readLine();
@@ -24,13 +30,15 @@ public final class CharStatisticsGenerator {
         }
     }
 
-    public static void generate(String inputFilePath, String outputFilePath) {
+    public void generate(String inputFilePath, String outputFilePath) {
         start(inputFilePath, outputFilePath);
     }
 
-    private static void start(String inputFilePath, String outputFilePath) {
+    private void start(String inputFilePath, String outputFilePath) {
         ICharStatisticsCollector collector = new CharStatisticsCollector();
-        new FileReader(inputFilePath, collector).readFile();
-        new CharStatisticsWriter(collector.packOutput(), outputFilePath).writeCharStatistics();
+        fileReader = new FileReader(inputFilePath, collector);
+        fileReader.readFile();
+        charStatisticsWriter = new CharStatisticsWriter(collector.getValues(), outputFilePath);
+        charStatisticsWriter.writeCharStatistics();
     }
 }
