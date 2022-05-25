@@ -8,8 +8,7 @@ public class App {
         sort("Task2/src/main/resources/input.txt", "Task2/src/main/resources/1.txt", "org.sort.SortAlphabetic");
         sort("Task2/src/main/resources/input.txt", "Task2/src/main/resources/2.txt", "org.sort.SortLength");
         sort("Task2/src/main/resources/input.txt", "Task2/src/main/resources/3.txt", "org.sort.SortAlphabeticTurned");
-        sort("Task2/src/main/resources/input.txt", "Task2/src/main/resources/4.txt", "org.sort.SortAlphabeticSorted");
-        sort("Task2/src/main/resources/input.txt", "Task2/src/main/resources/5.txt", "org.sort.SortFirstLetterCodeDigitsSum");
-//        sort("input.txt", "no class");
+        sort("org.sort.SortAlphabeticSorted");
+        sort("org.sort.SortFirstLetterCodeDigitsSum");
     }
 }
