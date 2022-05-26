@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class CharStatisticsGeneratorTest
 {
     @Test
-    public void charStatisticsGenerator() throws IOException
+    public void executeCharStatisticsGenerator() throws IOException
     {
         String inp = "src/test/resources/input.txt";
         String out1 = "src/test/resources/output1.txt";
@@ -34,14 +34,14 @@ public class CharStatisticsGeneratorTest
     }
 
     @Test
-    public void tempFileStatisticsGenerator() throws IOException
+    public void executeTempFileStatisticsGenerator() throws IOException
     {
         String prefix = "src/test/resources/";
         TempCollector tempCollector = new TempCollector();
         CharStatisticsGenerator generator = new CharStatisticsGenerator();
         String outputPath = prefix + "/tempOutput.txt";
         generator.generate(prefix + tempCollector.getTempFile().getFileName().toString(), outputPath);
-        assertEquals(tempCollector.getCollector(), generator.getFileReader().getCollector());
+        assertEquals(tempCollector.getMap(), generator.getFileReader().getCollector().getMap());
         deleteFiles(tempCollector.getTempFile(), Path.of(outputPath));
     }
 

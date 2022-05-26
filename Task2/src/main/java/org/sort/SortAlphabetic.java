@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class SortAlphabetic implements IFileSortingStrategy {
 
     @Override
-    public Comparator<String> sortingStrategy() {
-        return Comparator.comparing(this::onlyAlphabeticAndDigit);
+    public Comparator<String> getSortingStrategy() {
+        return Comparator.comparing(this::makeOnlyAlphabeticAndDigit);
     }
 }

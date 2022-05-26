@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
 
-public class DoSortByInput {
+public class SortByInput {
 
     public static void sort(String fileName, String outputFileName, String fullyQualifiedClass) {
         try {

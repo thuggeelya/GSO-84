@@ -4,24 +4,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class TempCollector {
 
-    private static final String CHARS = "aqwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    private final ICharStatisticsCollector collector;
+    private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    private final Map<Character, CharCount> charStatisticsMap = new TreeMap<>();
     private Path tempFile;
 
     public TempCollector() throws IOException {
-        this.collector = new CharStatisticsCollector();
         this.collectRandomChars();
-    }
-
-    public CharStatisticsCollector getCollector() {
-        return (CharStatisticsCollector) collector;
     }
 
     public Path getTempFile() {
         return tempFile;
+    }
+
+    public Map<Character, CharCount> getMap() {
+        return charStatisticsMap;
     }
 
     public void collectRandomChars() throws IOException {
@@ -31,7 +33,10 @@ public class TempCollector {
         for (int i = 0; i < 25; i++) {
             v = CHARS.charAt((int) (Math.random() * CHARS.length()));
             line.append(v);
-            collector.collect(v);
+
+            if (v != '\n') {
+                charStatisticsMap.put(v, charStatisticsMap.getOrDefault(v, new CharCount(v, new AtomicLong(0))).incCountAndGet());
+            }
         }
 
         Path tempFile = Files.createTempFile(Path.of("src/test/resources/"), "temp", ".txt");

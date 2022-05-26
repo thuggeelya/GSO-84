@@ -1,8 +1,10 @@
 package org.sort;
 
+import java.util.Arrays;
+
 public interface IStringRefactoring {
 
-    default String onlyAlphabeticAndDigit(String s) {
+    default String makeOnlyAlphabeticAndDigit(String s) {
         if (isBlank(s)) {
             return s;
         }
@@ -16,6 +18,58 @@ public interface IStringRefactoring {
         }
 
         return sb.toString();
+    }
+
+    default String alphabetize(String s) {
+        String alpha = makeOnlyAlphabeticAndDigit(s);
+
+        if (isBlank(alpha)) {
+            return s;
+        }
+
+        char[] wordChars = alpha.toCharArray();
+        Arrays.sort(wordChars);
+        return new String(wordChars);
+    }
+
+    default String reverse(String s) {
+        String alpha = makeOnlyAlphabeticAndDigit(s);
+
+        if (isBlank(alpha)) {
+            return s;
+        }
+
+        return new StringBuilder(alpha).reverse().toString();
+    }
+
+    default int getSumDigits(String s) {
+        String alpha = makeOnlyAlphabeticAndDigit(s);
+
+        if (isBlank(alpha)) {
+            return 0;
+        }
+
+        int n = Character.getNumericValue(alpha.charAt(0));
+
+        if (n < 10) {
+            return n;
+        }
+
+        int sum = 0;
+
+        for (char c : String.valueOf(n).toCharArray()) {
+            sum += Integer.parseInt(String.valueOf(c));
+        }
+
+        return sum;
+    }
+
+    default int getNonPunctuationalLength(String s) {
+        if (isBlank(s)) {
+            return 0;
+        }
+
+        return makeOnlyAlphabeticAndDigit(s).length();
     }
 
     default boolean isBlank(String s) {

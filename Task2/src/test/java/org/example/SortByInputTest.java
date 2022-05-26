@@ -1,20 +1,23 @@
 package org.example;
 
 import org.junit.Test;
-import org.sort.*;
+import org.sort.FileReadable;
+import org.sort.SortAlphabetic;
+import org.sort.SortAlphabeticSorted;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.example.DoSortByInput.sort;
+import static org.example.SortByInput.sort;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DoSortByInputTest
+public class SortByInputTest
 {
     @Test
-    public void exists() throws IOException {
+    public void checkIfExists() throws IOException
+    {
         String inp = "src/test/resources/input.txt";
         String out1 = "src/test/resources/output1.txt";
         String out2 = "src/test/resources/output2.txt";
@@ -28,23 +31,26 @@ public class DoSortByInputTest
     }
 
     @Test
-    public void tempFileSort() throws IOException {
+    public void sortTempFile() throws IOException
+    {
         String outputActual = "src/test/resources/output.txt";
         String outputTemp = "src/test/resources/tempOutput.txt";
         TempSort tempSort = new TempSort();
         tempSort.writeRandomText();
-        testStrategy(tempSort, outputActual, outputTemp, new SortAlphabetic());
-        testStrategy(tempSort, outputActual, outputTemp, new SortAlphabeticTurned());
-        testStrategy(tempSort, outputActual, outputTemp, new SortLength());
-        testStrategy(tempSort, outputActual, outputTemp, new SortAlphabeticSorted());
-        testStrategy(tempSort, outputActual, outputTemp, new SortFirstLetterCodeDigitsSum());
+        testStrategy(tempSort, outputActual, outputTemp, SortAlphabetic.class.getCanonicalName());
+        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortAlphabeticTurned");
+        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortLength");
+        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortAlphabeticSorted");
+        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortFirstLetterCodeDigitsSum");
         deleteFiles(tempSort.getTempFile().toString());
     }
 
-    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, IFileSortingStrategy strategy) throws IOException {
+    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, String strategy) throws IOException {
+        // sort by temp
         tempSort.setStrategy(strategy);
         tempSort.sortTemp(outputTemp);
-        sort(tempSort.getTempFile().toString(), outputActual, strategy.getClass().getCanonicalName());
+        // sort by main
+        sort(tempSort.getTempFile().toString(), outputActual, strategy);
         FileReadable readable = new SortAlphabetic();
         assertArrayEquals(readable.readFile(outputActual), readable.readFile(outputTemp));
         deleteFiles(outputActual, outputTemp);

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public interface IFileSortingStrategy extends FileWritable, FileReadable{
 
-    Comparator<String> sortingStrategy();
+    Comparator<String> getSortingStrategy();
 
     default void sort(String[] text) {
         writeFile(getLines(text));
@@ -18,6 +18,6 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
     }
 
     default List<String> getLines(String[] text) {
-        return Arrays.stream(text).sorted(sortingStrategy()).collect(Collectors.toList());
+        return Arrays.stream(text).sorted(getSortingStrategy()).collect(Collectors.toList());
     }
 }

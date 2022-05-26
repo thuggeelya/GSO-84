@@ -1,12 +1,20 @@
 package org.example;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class CharStatisticsCollector implements ICharStatisticsCollector {
 
+//    private final long id;
     private final Map<Character, CharCount> map = new TreeMap<>();
+
+    public CharStatisticsCollector() {
+//        this.id = (long) Math.floor(Math.random() * Long.MAX_VALUE);
+    }
 
     public Map<Character, CharCount> getMap() {
         return map;
@@ -34,7 +42,8 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
 
     @Override
     public int hashCode() {
-        return Objects.hash(map.size());
+//        return Objects.hash(id);
+        return Objects.hash(getClass());
     }
 
     @Override

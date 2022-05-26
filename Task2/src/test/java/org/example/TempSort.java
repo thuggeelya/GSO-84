@@ -1,26 +1,27 @@
 package org.example;
 
-import org.sort.IFileSortingStrategy;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static org.example.UtilSortingStrategy.getLines;
 
 public class TempSort {
 
-    private static final String CHARS = "aqwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
     private Path tempFile;
-    private IFileSortingStrategy strategy;
+    private String strategy;
     private List<String> words;
 
     public Path getTempFile() {
         return tempFile;
     }
 
-    public void setStrategy(IFileSortingStrategy strategy) {
+    public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
 
@@ -48,6 +49,14 @@ public class TempSort {
     }
 
     public void sortTemp(String outputFile) {
-        strategy.sort(words.toArray(new String[]{}), outputFile);
+        if ((outputFile == null) || (outputFile.isBlank())) {
+            throw new IllegalArgumentException("File name cannot be null");
+        }
+
+        try {
+            Files.write(Path.of(outputFile), getLines(words, strategy));
+        } catch (IOException e) {
+            Logger.getGlobal().severe("Something went wrong: " + e);
+        }
     }
 }
