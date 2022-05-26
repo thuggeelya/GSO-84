@@ -21,11 +21,6 @@ public class CharCount implements Comparable<CharCount> {
         return count;
     }
 
-    public CharCount incCountAndGet() {
-        count.set(count.incrementAndGet());
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,6 +42,6 @@ public class CharCount implements Comparable<CharCount> {
 
     @Override
     public String toString() {
-        return ch.toString();
+        return ch.toString() + " " + count.get();
     }
 }

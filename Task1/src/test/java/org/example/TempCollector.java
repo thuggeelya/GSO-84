@@ -35,7 +35,13 @@ public class TempCollector {
             line.append(v);
 
             if (v != '\n') {
-                charStatisticsMap.put(v, charStatisticsMap.getOrDefault(v, new CharCount(v, new AtomicLong(0))).incCountAndGet());
+                CharCount charCount = charStatisticsMap.get(v);
+
+                if (charCount != null) {
+                    charStatisticsMap.get(v).getCount().incrementAndGet();
+                } else {
+                    charStatisticsMap.put(v, new CharCount(v, new AtomicLong(0)));
+                }
             }
         }
 

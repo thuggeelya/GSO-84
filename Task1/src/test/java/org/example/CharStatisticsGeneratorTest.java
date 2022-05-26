@@ -39,7 +39,7 @@ public class CharStatisticsGeneratorTest
         String prefix = "src/test/resources/";
         TempCollector tempCollector = new TempCollector();
         CharStatisticsGenerator generator = new CharStatisticsGenerator();
-        String outputPath = prefix + "/tempOutput.txt";
+        String outputPath = prefix + "tempOutput.txt";
         generator.generate(prefix + tempCollector.getTempFile().getFileName().toString(), outputPath);
         assertEquals(tempCollector.getMap(), generator.getFileReader().getCollector().getMap());
         deleteFiles(tempCollector.getTempFile(), Path.of(outputPath));

@@ -8,14 +8,9 @@ import java.util.logging.Logger;
 public final class CharStatisticsGenerator {
 
     private FileReader fileReader;
-    private CharStatisticsWriter charStatisticsWriter;
 
     public FileReader getFileReader() {
         return fileReader;
-    }
-
-    public CharStatisticsWriter getCharStatisticsWriter() {
-        return charStatisticsWriter;
     }
 
     public void generate() {
@@ -34,7 +29,7 @@ public final class CharStatisticsGenerator {
         ICharStatisticsCollector collector = new CharStatisticsCollector();
         fileReader = new FileReader(inputFilePath, collector);
         fileReader.readFile();
-        charStatisticsWriter = new CharStatisticsWriter(collector.getValues(), outputFilePath);
+        CharStatisticsWriter charStatisticsWriter = new CharStatisticsWriter(collector.getValues(), outputFilePath);
         charStatisticsWriter.writeCharStatistics();
     }
 }

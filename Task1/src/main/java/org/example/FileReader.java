@@ -16,10 +16,6 @@ public class FileReader {
         this.collector = collector;
     }
 
-    public String getFullFileName() {
-        return fullFileName;
-    }
-
     public CharStatisticsCollector getCollector() {
         return (CharStatisticsCollector) collector;
     }
