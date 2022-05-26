@@ -13,7 +13,7 @@ public class TempCollector {
 
     public TempCollector() throws IOException {
         this.collector = new CharStatisticsCollector();
-        this.collect();
+        this.collectRandomChars();
     }
 
     public CharStatisticsCollector getCollector() {
@@ -24,7 +24,7 @@ public class TempCollector {
         return tempFile;
     }
 
-    public void collect() throws IOException {
+    public void collectRandomChars() throws IOException {
         char v;
         StringBuilder line = new StringBuilder();
 

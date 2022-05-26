@@ -25,8 +25,11 @@ public class CharStatisticsGeneratorTest
         Path path2 = Path.of(out2);
         assertTrue(Files.exists(path1));
         assertTrue(Files.exists(path2));
-        assertEquals(generator1.getFileReader().getCollector().getMap().get('a').getCount().get(), generator2.getFileReader().getCollector().getMap().get('a').getCount().get());
-        assertEquals(generator1.getFileReader().getCollector().getMap().get('I').getCount().get(), generator2.getFileReader().getCollector().getMap().get('I').getCount().get());
+
+        assertEquals(generator1.getFileReader().getCollector().getMap().get('a').getCount().get(),
+                     generator2.getFileReader().getCollector().getMap().get('a').getCount().get());
+        assertEquals(generator1.getFileReader().getCollector().getMap().get('I').getCount().get(),
+                     generator2.getFileReader().getCollector().getMap().get('I').getCount().get());
         deleteFiles(path1, path2);
     }
 
