@@ -36,7 +36,7 @@ public class CharCount implements Comparable<CharCount> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ch, count);
+        return Objects.hash(ch);
     }
 
     @Override
