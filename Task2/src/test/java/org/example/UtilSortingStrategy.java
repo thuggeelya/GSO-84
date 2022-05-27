@@ -60,12 +60,7 @@ public class UtilSortingStrategy {
 
     private static String reverse(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
-
-        if (isBlank(alpha)) {
-            return s;
-        }
-
-        return new StringBuilder(alpha).reverse().toString();
+        return isBlank(alpha) ? s : new StringBuilder(alpha).reverse().toString();
     }
 
     private static String alphabetize(String s) {
@@ -103,11 +98,8 @@ public class UtilSortingStrategy {
     }
 
     private static int getNonPunctuationalLength(String s) {
-        if (isBlank(s)) {
-            return 0;
-        }
+        return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
 
-        return makeOnlyAlphabeticAndDigit(s).length();
     }
 
     private static boolean isBlank(String s) {

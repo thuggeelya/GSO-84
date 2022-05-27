@@ -15,12 +15,12 @@ import static org.junit.Assert.assertTrue;
 
 public class SortByInputTest
 {
+    private static final String PREFIX = "src/test/resources/";
     @Test
-    public void checkIfExists() throws IOException
-    {
-        String inp = "src/test/resources/input.txt";
-        String out1 = "src/test/resources/output1.txt";
-        String out2 = "src/test/resources/output2.txt";
+    public void checkIfExists() throws IOException, ClassNotFoundException {
+        String inp  = PREFIX + "input.txt";
+        String out1 = PREFIX + "output1.txt";
+        String out2 = PREFIX + "output2.txt";
         sort(inp, out1, SortAlphabetic.class.getCanonicalName());
         sort(inp, out2, SortAlphabeticSorted.class.getCanonicalName());
         Path path1 = Path.of(out1);
@@ -31,10 +31,9 @@ public class SortByInputTest
     }
 
     @Test
-    public void sortTempFile() throws IOException
-    {
-        String outputActual = "src/test/resources/output.txt";
-        String outputTemp = "src/test/resources/tempOutput.txt";
+    public void sortTempFile() throws IOException, ClassNotFoundException {
+        String outputActual = PREFIX + "output.txt";
+        String outputTemp   = PREFIX + "tempOutput.txt";
         TempSort tempSort = new TempSort();
         tempSort.writeRandomText();
         testStrategy(tempSort, outputActual, outputTemp, SortAlphabetic.class.getCanonicalName());
@@ -45,7 +44,7 @@ public class SortByInputTest
         deleteFiles(tempSort.getTempFile().toString());
     }
 
-    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, String strategy) throws IOException {
+    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, String strategy) throws IOException, ClassNotFoundException {
         // sort by temp
         tempSort.setStrategy(strategy);
         tempSort.sortTemp(outputTemp);

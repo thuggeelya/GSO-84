@@ -12,12 +12,13 @@ import static org.junit.Assert.assertTrue;
 
 public class CharStatisticsGeneratorTest
 {
+    private static final String PREFIX = "src/test/resources/";
     @Test
     public void executeCharStatisticsGenerator() throws IOException
     {
-        String inp = "src/test/resources/input.txt";
-        String out1 = "src/test/resources/output1.txt";
-        String out2 = "src/test/resources/output2.txt";
+        String inp  = PREFIX + "input.txt";
+        String out1 = PREFIX + "output1.txt";
+        String out2 = PREFIX + "output2.txt";
         CharStatisticsGenerator generator1 = new CharStatisticsGenerator();
         CharStatisticsGenerator generator2 = new CharStatisticsGenerator();
         generator1.generate(inp, out1);
@@ -41,16 +42,16 @@ public class CharStatisticsGeneratorTest
     @Test
     public void executeTempFileStatisticsGenerator() throws IOException
     {
-        String prefix = "src/test/resources/";
         TempCollector tempCollector = new TempCollector();
         CharStatisticsGenerator generator = new CharStatisticsGenerator();
-        String outputPath = prefix + "tempOutput.txt";
-        generator.generate(prefix + tempCollector.getTempFile().getFileName().toString(), outputPath);
+        String outputPath = PREFIX + "tempOutput.txt";
+        generator.generate(PREFIX + tempCollector.getTempFile().getFileName().toString(), outputPath);
         assertEquals(tempCollector.getMap(), generator.getFileReader().getCollector().getMap());
         deleteFiles(tempCollector.getTempFile(), Path.of(outputPath));
     }
 
-    private void deleteFiles(Path... paths) throws IOException {
+    private void deleteFiles(Path... paths) throws IOException
+    {
         for (Path p : paths) {
             Files.deleteIfExists(p);
         }
