@@ -34,12 +34,7 @@ public interface IStringRefactoring {
 
     default String reverse(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
-
-        if (isBlank(alpha)) {
-            return s;
-        }
-
-        return new StringBuilder(alpha).reverse().toString();
+        return isBlank(alpha) ? s : new StringBuilder(alpha).reverse().toString();
     }
 
     default int getSumDigits(String s) {
@@ -65,11 +60,8 @@ public interface IStringRefactoring {
     }
 
     default int getNonPunctuationalLength(String s) {
-        if (isBlank(s)) {
-            return 0;
-        }
+        return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
 
-        return makeOnlyAlphabeticAndDigit(s).length();
     }
 
     default boolean isBlank(String s) {

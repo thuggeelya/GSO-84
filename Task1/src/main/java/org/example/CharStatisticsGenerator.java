@@ -13,11 +13,12 @@ public final class CharStatisticsGenerator {
         return fileReader;
     }
 
+    @SuppressWarnings("unused")
     public void generate() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.println("Откуда считывать:");
+            System.out.println("Input file:");
             String inputFilePath = br.readLine();
-            System.out.println("Куда записывать:");
+            System.out.println("Output file:");
             String outputFilePath = br.readLine();
             generate(inputFilePath, outputFilePath);
         } catch (IOException e) {

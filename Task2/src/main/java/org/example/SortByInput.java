@@ -23,9 +23,9 @@ public class SortByInput {
 
     public static void sort(String fullyQualifiedClass) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.println("Откуда считывать:");
+            System.out.println("Input file:");
             String inputFile = br.readLine();
-            System.out.println("Куда записывать:");
+            System.out.println("Output file:");
             String outputFile = br.readLine();
             sort(inputFile, outputFile, fullyQualifiedClass);
         } catch (IOException e) {

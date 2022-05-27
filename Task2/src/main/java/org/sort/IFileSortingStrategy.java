@@ -18,6 +18,8 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
     }
 
     default List<String> getLines(String[] text) {
-        return Arrays.stream(text).sorted(getSortingStrategy()).collect(Collectors.toList());
+        return Arrays.stream(text)
+                .sorted(getSortingStrategy())
+                .collect(Collectors.toList());
     }
 }

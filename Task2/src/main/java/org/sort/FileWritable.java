@@ -25,8 +25,7 @@ public interface FileWritable extends IStringRefactoring {
     default void writeFile(List<String> lines) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String outputFilePath = br.readLine();
-            writeFile(outputFilePath, lines);
+            writeFile(br.readLine(), lines);
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
             e.printStackTrace();

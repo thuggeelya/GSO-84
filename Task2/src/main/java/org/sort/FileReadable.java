@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 
 public interface FileReadable extends IStringRefactoring {
 
+    @SuppressWarnings("unused")
     default String[] readFile() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            String inputFilePath = br.readLine();
-            return readFile(inputFilePath);
+            return readFile(br.readLine());
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }

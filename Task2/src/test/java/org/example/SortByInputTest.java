@@ -25,8 +25,8 @@ public class SortByInputTest
         sort(inp, out2, SortAlphabeticSorted.class.getCanonicalName());
         Path path1 = Path.of(out1);
         Path path2 = Path.of(out2);
-        assertTrue(Files.exists(path1));
-        assertTrue(Files.exists(path2));
+        assertTrue("file doesn't exist: " + out1, Files.exists(path1));
+        assertTrue("file doesn't exist: " + out2, Files.exists(path2));
         deleteFiles(out1, out2);
     }
 
@@ -52,7 +52,7 @@ public class SortByInputTest
         // sort by main
         sort(tempSort.getTempFile().toString(), outputActual, strategy);
         FileReadable readable = new SortAlphabetic();
-        assertArrayEquals(readable.readFile(outputActual), readable.readFile(outputTemp));
+        assertArrayEquals("files don't match: " + outputActual + ", " + outputTemp, readable.readFile(outputActual), readable.readFile(outputTemp));
         deleteFiles(outputActual, outputTemp);
     }
 
