@@ -29,10 +29,12 @@ public class CharStatisticsGeneratorTest
 
         Map<Character, CharCount> map1 = generator1.getFileReader().getCollector().getMap();
         Map<Character, CharCount> map2 = generator2.getFileReader().getCollector().getMap();
-        assertEquals("numbers are not equal", map1.get('a').getCount().get(),
-                map2.get('a').getCount().get());
-        assertEquals("numbers are not equal", map1.get('I').getCount().get(),
-                map2.get('I').getCount().get());
+        char ch1 = 'a';
+        char ch2 = 'I';
+        assertEquals("'" + ch1 + "' counts are not equal", map1.get(ch1).getCount().get(),
+                map2.get(ch1).getCount().get());
+        assertEquals("'" + ch2 + "' counts are not equal", map1.get(ch2).getCount().get(),
+                map2.get(ch2).getCount().get());
         deleteFiles(path1, path2);
     }
 
