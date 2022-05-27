@@ -5,43 +5,26 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class CharStatisticsGeneratorTest
-{
+public class CharStatisticsGeneratorTest {
     private static final String PREFIX = "src/test/resources/";
-    @Test
-    public void executeCharStatisticsGenerator() throws IOException
-    {
-        String inp  = PREFIX + "input.txt";
-        String out1 = PREFIX + "output1.txt";
-        String out2 = PREFIX + "output2.txt";
-        CharStatisticsGenerator generator1 = new CharStatisticsGenerator();
-        CharStatisticsGenerator generator2 = new CharStatisticsGenerator();
-        generator1.generate(inp, out1);
-        generator2.generate(inp, out2);
-        Path path1 = Path.of(out1);
-        Path path2 = Path.of(out2);
-        assertTrue("file doesn't exist: " + out1, Files.exists(path1));
-        assertTrue("file doesn't exist: " + out2, Files.exists(path2));
 
-        Map<Character, CharCount> map1 = generator1.getFileReader().getCollector().getMap();
-        Map<Character, CharCount> map2 = generator2.getFileReader().getCollector().getMap();
-        char ch1 = 'a';
-        char ch2 = 'I';
-        assertEquals("'" + ch1 + "' counts are not equal", map1.get(ch1).getCount().get(),
-                map2.get(ch1).getCount().get());
-        assertEquals("'" + ch2 + "' counts are not equal", map1.get(ch2).getCount().get(),
-                map2.get(ch2).getCount().get());
-        deleteFiles(path1, path2);
+    @Test
+    public void checkIfExists() throws IOException {
+        String inp = PREFIX + "input.txt";
+        String out = PREFIX + "output.txt";
+        CharStatisticsGenerator generator = new CharStatisticsGenerator();
+        generator.generate(inp, out);
+        Path path = Path.of(out);
+        assertTrue("file doesn't exist: " + out, Files.exists(path));
+        deleteFiles(path);
     }
 
     @Test
-    public void executeTempFileStatisticsGenerator() throws IOException
-    {
+    public void executeTempFileStatisticsGenerator() throws IOException {
         TempCollector tempCollector = new TempCollector();
         CharStatisticsGenerator generator = new CharStatisticsGenerator();
         String outputPath = PREFIX + "tempOutput.txt";
@@ -50,8 +33,16 @@ public class CharStatisticsGeneratorTest
         deleteFiles(tempCollector.getTempFile(), Path.of(outputPath));
     }
 
-    private void deleteFiles(Path... paths) throws IOException
-    {
+    @Test
+    public void executeRealFileStatisticsGenerator() {
+        String inp = PREFIX + "input.txt";
+        String out = PREFIX + "output.txt";
+        CharStatisticsGenerator generator = new CharStatisticsGenerator();
+        generator.generate(inp, out);
+        assertEquals(RealCollector.MAP, generator.getFileReader().getCollector().getMap());
+    }
+
+    private void deleteFiles(Path... paths) throws IOException {
         for (Path p : paths) {
             Files.deleteIfExists(p);
         }

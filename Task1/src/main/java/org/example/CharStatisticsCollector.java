@@ -18,13 +18,8 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
     @Override
     public void collect(Character ch) {
         if (!ch.equals('\n')) {
-            CharCount charCount = map.get(ch);
-
-            if (charCount != null) {
-                map.get(ch).getCount().incrementAndGet();
-            } else {
-                map.put(ch, new CharCount(ch, new AtomicLong(0)));
-            }
+            map.computeIfAbsent(ch, key -> new CharCount(key, new AtomicLong(0)));
+            map.get(ch).getCount().incrementAndGet();
         }
     }
 
