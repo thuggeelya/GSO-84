@@ -7,21 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CharStatisticsGeneratorTest {
     private static final String PREFIX = "src/test/resources/";
-
-    @Test
-    public void checkIfExists() throws IOException {
-        String inp = PREFIX + "input.txt";
-        String out = PREFIX + "output.txt";
-        CharStatisticsGenerator generator = new CharStatisticsGenerator();
-        generator.generate(inp, out);
-        Path path = Path.of(out);
-        assertTrue("file doesn't exist: " + out, Files.exists(path));
-        deleteFiles(path);
-    }
 
     @Test
     public void executeTempFileStatisticsGenerator() throws IOException {
