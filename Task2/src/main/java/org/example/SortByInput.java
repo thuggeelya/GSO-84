@@ -30,8 +30,7 @@ public class SortByInput {
             Class<?> c = Class.forName(fullyQualifiedClass);
             IFileSortingStrategy instance = (IFileSortingStrategy) c.getDeclaredConstructor().newInstance();
             instance.sort(instance.readFile(inputFile), outputFile);
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
-                 InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }
     }
