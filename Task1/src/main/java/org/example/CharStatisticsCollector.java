@@ -48,8 +48,6 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
 
     @Override
     public String toString() {
-        return "CharStatisticsCollector" + "{" +
-                "map=" + map +
-                '}';
+        return "CharStatisticsCollector" + "{" + "map=" + map + '}';
     }
 }
