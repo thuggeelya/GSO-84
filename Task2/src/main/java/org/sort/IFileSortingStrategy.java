@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
  *
  * The {@code IFileSortingStrategy} interface provides two methods for text sorting.
  * The user can persist the output path in signature or using terminal.
+ * @see org.sort.FileReadable
+ * @see org.sort.FileWritable
  */
 public interface IFileSortingStrategy extends FileWritable, FileReadable{
 
