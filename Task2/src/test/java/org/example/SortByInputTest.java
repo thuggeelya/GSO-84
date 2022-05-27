@@ -3,12 +3,13 @@ package org.example;
 import org.junit.Test;
 import org.sort.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Logger;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.example.RealSort.*;
 import static org.example.SortByInput.sort;
@@ -63,15 +64,19 @@ public class SortByInputTest {
     }
 
     private String[] read(String file) {
-        StringBuilder sb = new StringBuilder();
-        try (Stream<String> lines = Files.lines(Path.of(file), StandardCharsets.UTF_8)) {
-            lines.forEach(sb::append);
+        List<String> list = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+
+            while (line != null) {
+                list.add(line);
+                line = br.readLine();
+            }
         } catch (IOException e) {
-            Logger.getGlobal().severe("Something went wrong: " + e);
+            throw new RuntimeException(e);
         }
 
-        System.out.println(sb);
-        return sb.toString().split(" ");
+        return list.toArray(new String[0]);
     }
 
     private void deleteFiles(String... paths) throws IOException {

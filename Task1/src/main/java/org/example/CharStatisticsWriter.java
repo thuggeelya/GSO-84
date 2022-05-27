@@ -30,7 +30,7 @@ public class CharStatisticsWriter {
                 .forEach(c -> {
                     long count = c.getCount().get();
                     double percentage = BigDecimal.valueOf(100d * count / charsNumber.get()).setScale(1, RoundingMode.HALF_UP).doubleValue();
-                    String sb = "'" + c + "'" + "(" + percentage + "%): " + "#".repeat((int) count);
+                    String sb = "'" + c.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count);
                     lines.add(sb);
                 });
 
