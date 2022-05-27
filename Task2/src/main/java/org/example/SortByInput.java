@@ -16,13 +16,14 @@ public class SortByInput {
 
     /**
      * Sorts the text given in {@code inputFile} according to the
-     * sorting strategy, defined in {@code fullyQualifiedClass} implements
+     * <i>sorting strategy</i>, defined in {@code fullyQualifiedClass} implements
      * {@link org.sort.IFileSortingStrategy}, and writes it into {@code outputFile}.
      * @param inputFile Content path to input file
      * @param outputFile Content path to output file
      * @param fullyQualifiedClass Sorting class canonical name
      * @throws ClassNotFoundException if {@code fullyQualifiedClass} is missing
      * @see #sort(String fullyQualifiedClass)
+     * @see org.sort.IFileSortingStrategy
      */
     public static void sort(String inputFile, String outputFile, String fullyQualifiedClass) throws ClassNotFoundException {
         try {
