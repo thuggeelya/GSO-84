@@ -48,7 +48,7 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
 
     @Override
     public String toString() {
-        return "CharStatisticsCollector" + hashCode() + "{" +
+        return "CharStatisticsCollector" + "{" +
                 "map=" + map +
                 '}';
     }
