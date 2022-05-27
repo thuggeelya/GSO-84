@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Strategy to sort text in <i>files</i>.
+ * A strategy to sort text in <i>files</i>.
  *
- * The {@code IFileSortingStrategy} interface provides two methods for text sorting.
+ * <p>The {@code IFileSortingStrategy} interface provides two methods for text sorting.</p>
  * The user can persist the output path in signature or using terminal.
  * @see org.sort.FileReadable
  * @see org.sort.FileWritable
@@ -16,15 +16,14 @@ import java.util.stream.Collectors;
 public interface IFileSortingStrategy extends FileWritable, FileReadable{
 
     /**
-     * @return <i>sorting strategy</i> as a {@code Comparator}
+     * @return <i>sorting strategy</i> as a {@code Comparator} with {@code String} type
      */
     Comparator<String> getSortingStrategy();
 
     /**
-     * Sorts the words of input text
+     * Sorts the words of the given text
      * and writes the result into the <i>file</i>.
-     *
-     * File path needs to be given from terminal.
+     * <p>File path needs to be given from terminal.</p>
      * @param text A {@code String} array consisting of input text words
      */
     default void sort(String[] text) {
@@ -32,9 +31,8 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
     }
 
     /**
-     * Sorts the words of input text
+     * Sorts the words of the given text
      * and writes the result into the <i>file</i>.
-     *
      * @param text A {@code String} array consisting of input text words
      * @param outputFileName An output file content path
      */
@@ -44,7 +42,7 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
 
     /**
      * @param text An array containing words from read file
-     * @return List sorted by <i>sorting strategy</i>.
+     * @return List sorted by <i>sorting strategy</i>
      * @see #getSortingStrategy()
      */
     default List<String> getLines(String[] text) {
