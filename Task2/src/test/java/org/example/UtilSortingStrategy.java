@@ -99,7 +99,6 @@ public class UtilSortingStrategy {
 
     private static int getNonPunctuationalLength(String s) {
         return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
-
     }
 
     private static boolean isBlank(String s) {
