@@ -1,4 +1,4 @@
-package org.example;
+package org.statistics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +30,6 @@ public final class CharStatisticsGenerator {
         ICharStatisticsCollector collector = new CharStatisticsCollector();
         fileReader = new FileReader(inputFilePath, collector);
         fileReader.readFile();
-        CharStatisticsWriter charStatisticsWriter = new CharStatisticsWriter(collector.getValues(), outputFilePath);
-        charStatisticsWriter.writeCharStatistics();
+        new CharStatisticsWriter(collector.getValues(), outputFilePath).writeCharStatistics();
     }
 }

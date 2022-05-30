@@ -1,5 +1,7 @@
 package org.example;
 
+import org.statistics.CharCount;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +28,7 @@ public class TempCollector {
         return charStatisticsMap;
     }
 
-    public void collectRandomChars() throws IOException {
+    private void collectRandomChars() throws IOException {
         char ch;
         StringBuilder line = new StringBuilder();
 

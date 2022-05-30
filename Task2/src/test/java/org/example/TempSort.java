@@ -8,11 +8,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.example.UtilSortingStrategy.getLines;
+import static org.example.UtilSortingStrategy.getWordListSorted;
 
 public class TempSort {
 
-    private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()_-+=";
     private Path tempFile;
     private String strategy;
     private List<String> words;
@@ -33,6 +33,7 @@ public class TempSort {
 
         for (int i = 0; i < 25; i++) {
             word = new StringBuilder();
+
             for (int j = 0; j < 4; j++) {
                 v = CHARS.charAt((int) (Math.random() * CHARS.length()));
                 line.append(v);
@@ -54,7 +55,7 @@ public class TempSort {
         }
 
         try {
-            Files.write(Path.of(outputFile), getLines(words, strategy));
+            Files.write(Path.of(outputFile), getWordListSorted(words, strategy));
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }

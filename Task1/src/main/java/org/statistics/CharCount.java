@@ -1,4 +1,4 @@
-package org.example;
+package org.statistics;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;

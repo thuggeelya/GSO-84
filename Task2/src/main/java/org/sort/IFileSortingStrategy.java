@@ -27,7 +27,7 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
      * @param text A {@code String} array consisting of input text words
      */
     default void sort(String[] text) {
-        writeFile(getLines(text));
+        writeFile(getWordListSorted(text));
     }
 
     /**
@@ -37,7 +37,7 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
      * @param outputFileName An output file content path
      */
     default void sort(String[] text, String outputFileName) {
-        writeFile(outputFileName, getLines(text));
+        writeFile(outputFileName, getWordListSorted(text));
     }
 
     /**
@@ -45,7 +45,7 @@ public interface IFileSortingStrategy extends FileWritable, FileReadable{
      * @return List sorted by <i>sorting strategy</i>
      * @see #getSortingStrategy()
      */
-    default List<String> getLines(String[] text) {
+    default List<String> getWordListSorted(String[] text) {
         return Arrays.stream(text)
                 .sorted(getSortingStrategy())
                 .collect(Collectors.toList());

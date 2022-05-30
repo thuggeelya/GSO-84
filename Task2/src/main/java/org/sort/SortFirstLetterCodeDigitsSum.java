@@ -7,6 +7,6 @@ public class SortFirstLetterCodeDigitsSum implements IFileSortingStrategy {
 
     @Override
     public Comparator<String> getSortingStrategy() {
-        return Comparator.comparingInt(this::getSumDigits).thenComparing(Comparator.naturalOrder());
+        return Comparator.comparingInt(this::getFirstCharCodeSumDigits).thenComparing(Comparator.naturalOrder());
     }
 }

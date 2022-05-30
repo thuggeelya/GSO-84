@@ -1,4 +1,4 @@
-package org.example;
+package org.statistics;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

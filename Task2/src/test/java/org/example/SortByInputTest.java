@@ -18,6 +18,13 @@ import static org.junit.Assert.assertArrayEquals;
 public class SortByInputTest {
     private static final String PREFIX = "src/test/resources/";
 
+    /**
+     * Sorts created temporary file using {@code TempSort} class.
+     * Then compares the contents of temporary output and real output ({@link #read(String file)}).
+     *
+     * @throws IOException if an I/O error occurs or dir does not exist
+     * @throws ClassNotFoundException if fullyQualifiedClass is missing
+     */
     @Test
     public void sortTempFile() throws IOException, ClassNotFoundException {
         String outputActual = PREFIX + "output.txt";
@@ -25,13 +32,29 @@ public class SortByInputTest {
         TempSort tempSort = new TempSort();
         tempSort.writeRandomText();
         testStrategy(tempSort, outputActual, outputTemp, SortAlphabetic.class.getCanonicalName());
-        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortAlphabeticTurned");
-        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortLength");
-        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortAlphabeticSorted");
-        testStrategy(tempSort, outputActual, outputTemp, "org.sort.SortFirstLetterCodeDigitsSum");
+        testStrategy(tempSort, outputActual, outputTemp, SortAlphabeticTurned.class.getCanonicalName());
+        testStrategy(tempSort, outputActual, outputTemp, SortLength.class.getCanonicalName());
+        testStrategy(tempSort, outputActual, outputTemp, SortAlphabeticSorted.class.getCanonicalName());
+        testStrategy(tempSort, outputActual, outputTemp, SortFirstLetterCodeDigitsSum.class.getCanonicalName());
         deleteFiles(tempSort.getTempFile().toString());
     }
 
+    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, String strategy) throws IOException, ClassNotFoundException {
+        // sort by temp
+        tempSort.setStrategy(strategy);
+        tempSort.sortTemp(outputTemp);
+        // sort by main
+        sort(tempSort.getTempFile().toString(), outputActual, strategy);
+        assertArrayEquals("files don't match: " + outputActual + ", " + outputTemp, read(outputActual), read(outputTemp));
+        deleteFiles(outputActual, outputTemp);
+    }
+
+    /**
+     * Compares the sorting using {@code RealSort} class arrays known in advance.
+     *
+     * @throws ClassNotFoundException if fullyQualifiedClass is missing
+     * @throws IOException if an I/O error occurs or dir does not exist
+     */
     @Test
     public void compareWithReal() throws ClassNotFoundException, IOException {
         String inp = PREFIX + "input.txt";
@@ -51,16 +74,6 @@ public class SortByInputTest {
         assertArrayEquals("length sort failed", LENGTH, read(outLength));
         assertArrayEquals("first letter code sum sort failed", FIRST_LETTER_CODE_SUM, read(outFirstLetterCodeSum));
         deleteFiles(outAlphabetic, outAlphabeticTurned, outAlphabeticSorted, outLength, outFirstLetterCodeSum);
-    }
-
-    private void testStrategy(TempSort tempSort, String outputActual, String outputTemp, String strategy) throws IOException, ClassNotFoundException {
-        // sort by temp
-        tempSort.setStrategy(strategy);
-        tempSort.sortTemp(outputTemp);
-        // sort by main
-        sort(tempSort.getTempFile().toString(), outputActual, strategy);
-        assertArrayEquals("files don't match: " + outputActual + ", " + outputTemp, read(outputActual), read(outputTemp));
-        deleteFiles(outputActual, outputTemp);
     }
 
     private String[] read(String file) {

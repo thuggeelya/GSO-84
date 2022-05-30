@@ -37,7 +37,7 @@ public interface IStringRefactoring {
         return isBlank(alpha) ? s : new StringBuilder(alpha).reverse().toString();
     }
 
-    default int getSumDigits(String s) {
+    default int getFirstCharCodeSumDigits(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
 
         if (isBlank(alpha)) {
@@ -61,7 +61,6 @@ public interface IStringRefactoring {
 
     default int getNonPunctuationalLength(String s) {
         return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
-
     }
 
     default boolean isBlank(String s) {

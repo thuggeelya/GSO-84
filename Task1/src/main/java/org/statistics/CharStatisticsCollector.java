@@ -1,4 +1,4 @@
-package org.example;
+package org.statistics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +18,8 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
     @Override
     public void collect(Character ch) {
         if (!ch.equals('\n')) {
-            map.computeIfAbsent(ch, key -> new CharCount(key, new AtomicLong(0)));
-            map.get(ch).getCount().incrementAndGet();
+            map.computeIfAbsent(ch, key -> new CharCount(key, new AtomicLong(0))); // value persists anyway
+            map.get(ch).getCount().incrementAndGet(); // increment it
         }
     }
 

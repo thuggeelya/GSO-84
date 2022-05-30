@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class UtilSortingStrategy {
 
-    public static List<String> getLines(List<String> words, String strategyClassFullyQualified) {
+    public static List<String> getWordListSorted(List<String> words, String strategyClassFullyQualified) {
         Stream<String> stream = words.stream();
 
         switch (strategyClassFullyQualified) {

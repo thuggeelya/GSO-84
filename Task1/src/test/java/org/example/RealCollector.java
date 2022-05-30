@@ -1,11 +1,14 @@
 package org.example;
 
+import org.statistics.CharCount;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public final class RealCollector {
 
+    @SuppressWarnings("unused")
     public static final String INPUT = "The real collector";
     public static final Map<Character, CharCount> MAP = new HashMap<>();
 
