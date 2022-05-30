@@ -1,34 +1,22 @@
 package org.sort;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
 public interface FileWritable extends IStringRefactoring {
 
     default void writeFile(String outputFileName, List<String> lines) {
-        if (isBlank(outputFileName)) {
+        if (isNullOrEmpty(outputFileName)) {
             throw new IllegalArgumentException("File name cannot be null");
         }
 
         try {
-            Files.write(Path.of(outputFileName), lines);
+            Files.write(Paths.get(outputFileName), lines);
         } catch (IOException e) {
-            Logger.getGlobal().severe("Something went wrong: " + e);
-        }
-    }
-
-    default void writeFile(List<String> lines) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            writeFile(br.readLine(), lines);
-        } catch (IOException e) {
-            Logger.getGlobal().severe("Something went wrong: " + e);
-            e.printStackTrace();
+            Logger.getGlobal().severe(e.getMessage());
         }
     }
 }

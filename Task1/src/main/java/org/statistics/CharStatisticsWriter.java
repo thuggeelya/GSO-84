@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -35,10 +35,9 @@ public class CharStatisticsWriter {
                 });
 
         try {
-            Files.write(Path.of(this.fullOutputFileName), lines);
+            Files.write(Paths.get(this.fullOutputFileName), lines);
         } catch (IOException e) {
-            Logger.getGlobal().severe("Something went wrong: " + e);
-            e.printStackTrace();
+            Logger.getGlobal().severe(e.getMessage());
         }
     }
 }

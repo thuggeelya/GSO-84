@@ -22,14 +22,11 @@ public class FileReader {
 
     public void readFile() {
         try (InputStream is = new BufferedInputStream(new FileInputStream(this.fullFileName))) {
-            int ch = is.read();
-
-            while (ch != -1) {
-                collector.collect((char) ch);
-                ch = is.read();
+            while (is.available() > 0) {
+                collector.collect((char) is.read());
             }
         } catch (IOException e) {
-            Logger.getGlobal().severe("Something went wrong: " + e);
+            Logger.getGlobal().severe(e.getMessage());
         }
     }
 }

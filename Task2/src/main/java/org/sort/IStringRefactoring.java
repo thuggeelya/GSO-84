@@ -5,7 +5,7 @@ import java.util.Arrays;
 public interface IStringRefactoring {
 
     default String makeOnlyAlphabeticAndDigit(String s) {
-        if (isBlank(s)) {
+        if (isNullOrEmpty(s)) {
             return s;
         }
 
@@ -23,7 +23,7 @@ public interface IStringRefactoring {
     default String alphabetize(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
 
-        if (isBlank(alpha)) {
+        if (isNullOrEmpty(alpha)) {
             return s;
         }
 
@@ -34,13 +34,13 @@ public interface IStringRefactoring {
 
     default String reverse(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
-        return isBlank(alpha) ? s : new StringBuilder(alpha).reverse().toString();
+        return isNullOrEmpty(alpha) ? s : new StringBuilder(alpha).reverse().toString();
     }
 
     default int getFirstCharCodeSumDigits(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
 
-        if (isBlank(alpha)) {
+        if (isNullOrEmpty(alpha)) {
             return 0;
         }
 
@@ -60,10 +60,10 @@ public interface IStringRefactoring {
     }
 
     default int getNonPunctuationalLength(String s) {
-        return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
+        return isNullOrEmpty(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
     }
 
-    default boolean isBlank(String s) {
-        return (s == null) || (s.isBlank());
+    default boolean isNullOrEmpty(String s) {
+        return (s == null) || (s.isEmpty());
     }
 }

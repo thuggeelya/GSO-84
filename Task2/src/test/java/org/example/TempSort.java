@@ -3,6 +3,7 @@ package org.example;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,7 @@ import static org.example.UtilSortingStrategy.getWordListSorted;
 
 public class TempSort {
 
+    static final String PATH = "src/test/resources/";
     private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%^&*()_-+=";
     private Path tempFile;
     private String strategy;
@@ -44,18 +46,18 @@ public class TempSort {
             line.append(' ');
         }
 
-        Path tempFile = Files.createTempFile(Path.of("src/test/resources/"), "temp", ".txt");
+        Path tempFile = Files.createTempFile(Paths.get(PATH), "temp", ".txt");
         this.tempFile = tempFile;
         Files.write(tempFile, Collections.singleton(line.toString()));
     }
 
-    public void sortTemp(String outputFile) {
-        if ((outputFile == null) || (outputFile.isBlank())) {
+    public void sortTempAndWrite(String outputFile) {
+        if ((outputFile == null) || (outputFile.isEmpty())) {
             throw new IllegalArgumentException("File name cannot be null");
         }
 
         try {
-            Files.write(Path.of(outputFile), getWordListSorted(words, strategy));
+            Files.write(Paths.get(outputFile), getWordListSorted(words, strategy));
         } catch (IOException e) {
             Logger.getGlobal().severe("Something went wrong: " + e);
         }

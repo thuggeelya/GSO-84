@@ -42,6 +42,6 @@ public class CharCount implements Comparable<CharCount> {
 
     @Override
     public String toString() {
-        return ch.toString() + " " + count.get();
+        return ch.toString() + " - " + count.get();
     }
 }

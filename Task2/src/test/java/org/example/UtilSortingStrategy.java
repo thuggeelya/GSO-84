@@ -8,42 +8,27 @@ import java.util.stream.Stream;
 
 public class UtilSortingStrategy {
 
-    public static List<String> getWordListSorted(List<String> words, String strategyClassFullyQualified) {
+    static List<String> getWordListSorted(List<String> words, String strategyClassFullyQualified) {
         Stream<String> stream = words.stream();
 
         switch (strategyClassFullyQualified) {
-            case "org.sort.SortAlphabetic" -> stream = stream.sorted(getSortingStrategyAlpha());
-            case "org.sort.SortAlphabeticTurned" -> stream = stream.sorted(getSortingStrategyAlphaTurned());
-            case "org.sort.SortAlphabeticSorted" -> stream = stream.sorted(getSortingStrategyAlphaSorted());
-            case "org.sort.SortFirstLetterCodeDigitsSum" -> stream = stream.sorted(getSortingStrategyLetterCode());
-            case "org.sort.SortLength" -> stream = stream.sorted(getSortingStrategyLength());
+            case "org.sort.SortAlphabetic" ->
+                    stream = stream.sorted(Comparator.comparing(UtilSortingStrategy::makeOnlyAlphabeticAndDigit));
+            case "org.sort.SortAlphabeticTurned" ->
+                    stream = stream.sorted(Comparator.comparing(UtilSortingStrategy::reverse).thenComparing(Comparator.naturalOrder()));
+            case "org.sort.SortAlphabeticSorted" ->
+                    stream = stream.sorted(Comparator.comparing(UtilSortingStrategy::alphabetize).thenComparing(Comparator.naturalOrder()));
+            case "org.sort.SortFirstLetterCodeDigitsSum" ->
+                    stream = stream.sorted(Comparator.comparingInt(UtilSortingStrategy::getSumDigits).thenComparing(Comparator.naturalOrder()));
+            case "org.sort.SortLength" ->
+                    stream = stream.sorted(Comparator.comparingInt(UtilSortingStrategy::getNonPunctuationalLength).thenComparing(Comparator.naturalOrder()));
         }
 
         return stream.collect(Collectors.toList());
     }
 
-    private static Comparator<String> getSortingStrategyAlpha() {
-        return Comparator.comparing(UtilSortingStrategy::makeOnlyAlphabeticAndDigit);
-    }
-
-    private static Comparator<String> getSortingStrategyAlphaTurned() {
-        return Comparator.comparing(UtilSortingStrategy::reverse).thenComparing(Comparator.naturalOrder());
-    }
-
-    private static Comparator<String> getSortingStrategyAlphaSorted() {
-        return Comparator.comparing(UtilSortingStrategy::alphabetize).thenComparing(Comparator.naturalOrder());
-    }
-
-    private static Comparator<String> getSortingStrategyLetterCode() {
-        return Comparator.comparingInt(UtilSortingStrategy::getSumDigits).thenComparing(Comparator.naturalOrder());
-    }
-
-    private static Comparator<String> getSortingStrategyLength() {
-        return Comparator.comparingInt(UtilSortingStrategy::getNonPunctuationalLength).thenComparing(Comparator.naturalOrder());
-    }
-
     private static String makeOnlyAlphabeticAndDigit(String s) {
-        if (isBlank(s)) {
+        if (isEmptyOrNull(s)) {
             return s;
         }
 
@@ -60,13 +45,13 @@ public class UtilSortingStrategy {
 
     private static String reverse(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
-        return isBlank(alpha) ? s : new StringBuilder(alpha).reverse().toString();
+        return isEmptyOrNull(alpha) ? s : new StringBuilder(alpha).reverse().toString();
     }
 
     private static String alphabetize(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
 
-        if (isBlank(alpha)) {
+        if (isEmptyOrNull(alpha)) {
             return s;
         }
 
@@ -78,7 +63,7 @@ public class UtilSortingStrategy {
     private static int getSumDigits(String s) {
         String alpha = makeOnlyAlphabeticAndDigit(s);
 
-        if (isBlank(alpha)) {
+        if (isEmptyOrNull(alpha)) {
             return 0;
         }
 
@@ -98,10 +83,10 @@ public class UtilSortingStrategy {
     }
 
     private static int getNonPunctuationalLength(String s) {
-        return isBlank(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
+        return isEmptyOrNull(s) ? 0 : makeOnlyAlphabeticAndDigit(s).length();
     }
 
-    private static boolean isBlank(String s) {
+    private static boolean isEmptyOrNull(String s) {
         return (s == null) || (s.isBlank());
     }
 }
