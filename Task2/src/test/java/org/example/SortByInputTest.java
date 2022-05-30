@@ -55,11 +55,10 @@ public class SortByInputTest {
     private String[] read(String file) {
         List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = br.readLine();
+            String line;
 
-            while (line != null) {
+            while ((line = br.readLine()) != null) {
                 list.add(line);
-                line = br.readLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
