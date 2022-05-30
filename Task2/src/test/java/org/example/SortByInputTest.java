@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static org.example.RealSort.*;
-import static org.example.TempSort.PATH;
 import static org.junit.Assert.assertArrayEquals;
 
 public class SortByInputTest {
@@ -27,18 +26,18 @@ public class SortByInputTest {
      */
     @Test
     public void compareWithRealSort() throws ClassNotFoundException, IOException {
-        String inp = PATH + "input.txt";
+        String inp = "src/test/resources/input.txt";
         String out = "output.txt";
         sort(inp, out, SortAlphabetic.class.getCanonicalName());
-        assertArrayEquals("alphabetic sort failed", ALPHABETIC, read(out));
+        assertArrayEquals("Alphabetic sort failed", ALPHABETIC, read(out));
         sort(inp, out, SortAlphabeticTurned.class.getCanonicalName());
-        assertArrayEquals("alphabetic turned sort failed", ALPHABETIC_TURNED, read(out));
+        assertArrayEquals("Alphabetic turned sort failed", ALPHABETIC_TURNED, read(out));
         sort(inp, out, SortAlphabeticSorted.class.getCanonicalName());
-        assertArrayEquals("alphabetic sorted sort failed", ALPHABETIC_SORTED, read(out));
+        assertArrayEquals("Alphabetic sorted sort failed", ALPHABETIC_SORTED, read(out));
         sort(inp, out, SortLength.class.getCanonicalName());
-        assertArrayEquals("length sort failed", LENGTH, read(out));
+        assertArrayEquals("Length sort failed", LENGTH, read(out));
         sort(inp, out, SortFirstLetterCodeDigitsSum.class.getCanonicalName());
-        assertArrayEquals("first letter code sum sort failed", FIRST_LETTER_CODE_SUM, read(out));
+        assertArrayEquals("First letter code sum sort failed", FIRST_LETTER_CODE_SUM, read(out));
         deleteFiles(out);
     }
 
