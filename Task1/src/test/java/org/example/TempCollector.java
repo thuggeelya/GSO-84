@@ -24,6 +24,9 @@ public class TempCollector {
         return tempFile;
     }
 
+    /**
+     * @return dynamically collected char statistics
+     */
     public Map<Character, CharCount> getMap() {
         return charStatisticsMap;
     }
