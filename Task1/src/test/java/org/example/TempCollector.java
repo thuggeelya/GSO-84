@@ -38,7 +38,7 @@ public class TempCollector {
         char ch;
         StringBuilder line = new StringBuilder();
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 100; i++) {
             ch = CHARS.charAt((int) (Math.random() * CHARS.length()));
             line.append(ch);
 
