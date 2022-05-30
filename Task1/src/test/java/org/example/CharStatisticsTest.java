@@ -28,7 +28,7 @@ public class CharStatisticsTest {
     @Test
     public void executeTempFileStatistics() throws IOException {
         TempCollector tempCollector = new TempCollector();
-        String outputPath = PATH + "tempOutput.txt";
+        String outputPath = "tempOutput.txt";
         checkMapsEquality(PATH + tempCollector.getTempFile().getFileName().toString(), outputPath, tempCollector.getMap());
         deleteFiles(tempCollector.getTempFile(), Paths.get(outputPath));
     }
@@ -41,7 +41,7 @@ public class CharStatisticsTest {
      */
     @Test
     public void executeRealFileStatistics() throws IOException {
-        String outputPath = PATH + "output.txt";
+        String outputPath = "output.txt";
         checkMapsEquality(PATH + "input.txt", outputPath, MAP);
         deleteFiles(Paths.get(outputPath));
     }
