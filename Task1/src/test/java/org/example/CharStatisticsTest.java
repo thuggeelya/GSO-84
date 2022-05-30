@@ -13,10 +13,11 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import static org.example.RealCollector.MAP;
-import static org.example.TempCollector.PATH;
 import static org.junit.Assert.assertEquals;
 
 public class CharStatisticsTest {
+
+    static final String PATH = "src/test/resources/";
 
     /**
      * Creates temporary file using {@code TempCollector} class and
@@ -29,7 +30,7 @@ public class CharStatisticsTest {
     public void executeTempFileStatistics() throws IOException {
         TempCollector tempCollector = new TempCollector();
         String outputPath = "tempOutput.txt";
-        checkMapsEquality(PATH + tempCollector.getTempFile().getFileName().toString(), outputPath, tempCollector.getMap());
+        checkMapsEquality(tempCollector.getTempFile().toString(), outputPath, tempCollector.getMap());
         deleteFiles(tempCollector.getTempFile(), Paths.get(outputPath));
     }
 

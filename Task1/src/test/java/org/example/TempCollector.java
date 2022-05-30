@@ -11,9 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static org.example.CharStatisticsTest.PATH;
+
 public class TempCollector {
 
-    static final String PATH = "src/test/resources/";
     private static final String CHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
     private final Map<Character, CharCount> charStatisticsMap = new HashMap<>();
     private Path tempFile;
