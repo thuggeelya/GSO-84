@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Contains known in advance result according to the input file content.
+ */
 public final class RealCollector {
 
     @SuppressWarnings("unused")
