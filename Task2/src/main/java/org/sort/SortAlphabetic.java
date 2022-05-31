@@ -3,10 +3,12 @@ package org.sort;
 import java.util.Comparator;
 
 @SuppressWarnings("unused")
-public class SortAlphabetic implements IFileSortingStrategy {
+public class SortAlphabetic implements ISortingStrategy {
 
     @Override
     public Comparator<String> getSortingStrategy() {
-        return Comparator.comparing(this::makeOnlyAlphabeticAndDigit).thenComparing(Comparator.naturalOrder());
+        return Comparator.naturalOrder();
     }
+
+
 }

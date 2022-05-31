@@ -3,10 +3,10 @@ package org.sort;
 import java.util.Comparator;
 
 @SuppressWarnings("unused")
-public class SortLength implements IFileSortingStrategy {
+public class SortLength implements ISortingStrategy {
 
     @Override
     public Comparator<String> getSortingStrategy() {
-        return Comparator.comparingInt(this::getNonPunctuationalLength).thenComparing(Comparator.naturalOrder());
+        return Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder());
     }
 }

@@ -1,23 +1,35 @@
 package org.example;
 
 import org.junit.Test;
-import org.statistics.CharStatisticsCollector;
-import org.statistics.CharStatisticsWriter;
-import org.statistics.FileReader;
-import org.statistics.ICharStatisticsCollector;
+import org.statistics.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
-import static org.example.RealCollector.MAP;
 import static org.junit.Assert.assertEquals;
 
 public class CharStatisticsTest {
 
-    static final String PATH = "src/test/resources/";
+    static final String RESOURCES = "src/test/resources/";
+    public static final Map<Character, CharCount> MAP = new HashMap<>();
+
+    static {
+        MAP.put('T', new CharCount('T', new AtomicLong(1)));
+        MAP.put('h', new CharCount('h', new AtomicLong(1)));
+        MAP.put('e', new CharCount('e', new AtomicLong(3)));
+        MAP.put(' ', new CharCount(' ', new AtomicLong(2)));
+        MAP.put('r', new CharCount('r', new AtomicLong(2)));
+        MAP.put('a', new CharCount('a', new AtomicLong(1)));
+        MAP.put('l', new CharCount('l', new AtomicLong(3)));
+        MAP.put('c', new CharCount('c', new AtomicLong(2)));
+        MAP.put('o', new CharCount('o', new AtomicLong(2)));
+        MAP.put('t', new CharCount('t', new AtomicLong(1)));
+    }
 
     /**
      * Creates temporary file using {@code TempCollector} class and
@@ -36,18 +48,16 @@ public class CharStatisticsTest {
 
     /**
      * Compares the {@code CharStatisticsCollector} result with the
-     * {@code RealCollector.MAP} known in advance.
-     *
-     * @see RealCollector
+     * {@code MAP} known in advance.
      */
     @Test
     public void executeRealFileStatistics() throws IOException {
         String outputPath = "output.txt";
-        checkMapsEquality(PATH + "input.txt", outputPath, MAP);
+        checkMapsEquality(RESOURCES + "input.txt", outputPath, MAP);
         deleteFiles(Paths.get(outputPath));
     }
 
-    private void checkMapsEquality(String inputFile, String outputFile, Map<?, ?> mapToCompare) {
+    private void checkMapsEquality(String inputFile, String outputFile, Map<Character, CharCount> mapToCompare) {
         ICharStatisticsCollector collector = new CharStatisticsCollector();
         FileReader fileReader = new FileReader(inputFile, collector);
         fileReader.readFile();

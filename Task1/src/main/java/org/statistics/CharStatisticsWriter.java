@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 public class CharStatisticsWriter {
@@ -22,17 +21,18 @@ public class CharStatisticsWriter {
 
     public void writeCharStatistics() {
         List<String> lines = new ArrayList<>();
-        AtomicLong charsNumber = new AtomicLong(0);
-        charCountList.forEach(c -> charsNumber.addAndGet(c.getCount().get()));
-        charCountList
-                .stream()
-                .filter(c -> !c.getCh().equals('\n'))
-                .forEach(c -> {
-                    long count = c.getCount().get();
-                    double percentage = BigDecimal.valueOf(100d * count / charsNumber.get()).setScale(1, RoundingMode.HALF_UP).doubleValue();
-                    String sb = "'" + c.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count);
-                    lines.add(sb);
-                });
+        long charsNumber = 0;
+
+        for (CharCount charCount : charCountList) {
+            charsNumber += charCount.getCount().get();
+        }
+
+        for (CharCount charCount : charCountList) {
+            long count = charCount.getCount().get();
+            double percentage = BigDecimal.valueOf(100d * count / charsNumber).setScale(1, RoundingMode.HALF_UP).doubleValue();
+            String sb = "'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count);
+            lines.add(sb);
+        }
 
         try {
             Files.write(Paths.get(this.fullOutputFileName), lines);

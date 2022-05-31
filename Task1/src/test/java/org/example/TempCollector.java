@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static org.example.CharStatisticsTest.PATH;
+import static org.example.CharStatisticsTest.RESOURCES;
 
 public class TempCollector {
 
@@ -43,14 +43,15 @@ public class TempCollector {
             line.append(ch);
 
             if (ch != '\n') {
-                charStatisticsMap
-                        .computeIfAbsent(ch, key -> new CharCount(key, new AtomicLong(0)))
-                        .getCount()
-                        .incrementAndGet();
+                CharCount value = charStatisticsMap.putIfAbsent(ch, new CharCount(ch, new AtomicLong(1)));
+
+                if (value != null) {
+                    value.getCount().incrementAndGet();
+                }
             }
         }
 
-        Path tempFile = Files.createTempFile(Paths.get(PATH), "temp", ".txt");
+        Path tempFile = Files.createTempFile(Paths.get(RESOURCES), "temp", ".txt");
         this.tempFile = tempFile;
         Files.write(tempFile, Collections.singleton(line.toString()));
     }

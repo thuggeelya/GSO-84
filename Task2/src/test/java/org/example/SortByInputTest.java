@@ -3,73 +3,114 @@ package org.example;
 import org.junit.Test;
 import org.sort.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.example.RealSort.*;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class SortByInputTest {
 
+    public static final List<String> ALPHABETIC = new ArrayList<String>() {
+        {
+            add("-12");
+            add("404");
+            add("boo-boo");
+            add("boo404");
+            add("Да");
+            add("нас");
+            add("окружает");
+            add("постоянно");
+            add("хаос");
+        }
+    };
+
+    public static final List<String> ALPHABETIC_TURNED = new ArrayList<String>() {
+        {
+            add("-12");
+            add("404");
+            add("boo404");
+            add("boo-boo");
+            add("Да");
+            add("постоянно");
+            add("нас");
+            add("хаос");
+            add("окружает");
+        }
+    };
+
+    public static final List<String> ALPHABETIC_SORTED = new ArrayList<String>() {
+        {
+            add("-12");
+            add("boo-boo");
+            add("404");
+            add("boo404");
+            add("Да");
+            add("окружает");
+            add("нас");
+            add("хаос");
+            add("постоянно");
+        }
+    };
+
+    public static final List<String> LENGTH = new ArrayList<String>() {
+        {
+            add("Да");
+            add("-12");
+            add("404");
+            add("нас");
+            add("хаос");
+            add("boo404");
+            add("boo-boo");
+            add("окружает");
+            add("постоянно");
+        }
+    };
+
+    public static final List<String> FIRST_LETTER_CODE_SUM = new ArrayList<String>() {
+        {
+            add("-12");
+            add("Да");
+            add("нас");
+            add("окружает");
+            add("постоянно");
+            add("хаос");
+            add("boo-boo");
+            add("boo404");
+            add("404");
+        }
+    };
+
+    private static final String INPUT_FILE = "src/test/resources/input.txt";
+
     /**
-     * Compares the sorting using {@link RealSort} class arrays known in advance.
+     * Compares the sorting using arrays known in advance.
      *
      * @throws ClassNotFoundException if fullyQualifiedClass is missing
-     * @throws IOException            if an I/O error occurs or dir does not exist
      */
     @Test
-    public void compareWithRealSort() throws ClassNotFoundException, IOException {
-        String inp = "src/test/resources/input.txt";
-        String out = "output.txt";
-        sort(inp, out, SortAlphabetic.class.getCanonicalName());
-        assertArrayEquals("Alphabetic sort failed", ALPHABETIC, read(out));
-        sort(inp, out, SortAlphabeticTurned.class.getCanonicalName());
-        assertArrayEquals("Alphabetic turned sort failed", ALPHABETIC_TURNED, read(out));
-        sort(inp, out, SortAlphabeticSorted.class.getCanonicalName());
-        assertArrayEquals("Alphabetic sorted sort failed", ALPHABETIC_SORTED, read(out));
-        sort(inp, out, SortLength.class.getCanonicalName());
-        assertArrayEquals("Length sort failed", LENGTH, read(out));
-        sort(inp, out, SortFirstLetterCodeDigitsSum.class.getCanonicalName());
-        assertArrayEquals("First letter code sum sort failed", FIRST_LETTER_CODE_SUM, read(out));
-        deleteFiles(out);
+    public void compareWithRealSort() throws ClassNotFoundException {
+        assertEquals("Alphabetic sort failed", ALPHABETIC, sort(SortAlphabetic.class.getCanonicalName()));
+        assertEquals("Alphabetic turned sort failed", ALPHABETIC_TURNED, sort(SortAlphabeticTurned.class.getCanonicalName()));
+        assertEquals("Alphabetic sorted sort failed", ALPHABETIC_SORTED, sort(SortAlphabeticSorted.class.getCanonicalName()));
+        assertEquals("Length sort failed", LENGTH, sort(SortLength.class.getCanonicalName()));
+        assertEquals("First letter code sum sort failed", FIRST_LETTER_CODE_SUM, sort(SortFirstLetterCodeDigitsSum.class.getCanonicalName()));
     }
 
-    private void sort(String inputFile, String outputFile, String fullyQualifiedClass) throws ClassNotFoundException {
+    private List<String> sort(String fullyQualifiedClass) throws ClassNotFoundException {
         try {
             Class<?> c = Class.forName(fullyQualifiedClass);
-            IFileSortingStrategy instance = (IFileSortingStrategy) c.getDeclaredConstructor().newInstance();
-            instance.sort(instance.readFile(inputFile), outputFile);
+            ISortingStrategy instance = (ISortingStrategy) c.getDeclaredConstructor().newInstance();
+            Dictionary dictionary = new Dictionary();
+            MyFileReader reader = new MyFileReader(INPUT_FILE, dictionary);
+            reader.readFile();
+            return instance.sort(dictionary);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
                  InvocationTargetException e) {
             Logger.getGlobal().severe(e.getMessage());
         }
-    }
 
-    private String[] read(String file) {
-        List<String> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                list.add(line);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return list.toArray(new String[0]);
-    }
-
-    private void deleteFiles(String... paths) throws IOException {
-        for (String s : paths) {
-            Files.deleteIfExists(Paths.get(s));
-        }
+        return new ArrayList<>();
     }
 }
