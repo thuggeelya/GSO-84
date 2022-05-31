@@ -1,10 +1,7 @@
 package org.statistics;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 public class CharStatisticsCollector implements ICharStatisticsCollector {
 
@@ -27,7 +24,9 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
 
     @Override
     public List<CharCount> getValues() {
-        return map.values().stream().sorted().collect(Collectors.toList());
+        List<CharCount> values = new ArrayList<>(map.values());
+        values.sort(Comparator.naturalOrder());
+        return values;
     }
 
     @Override
