@@ -46,7 +46,7 @@ public class TempCollector {
                 CharCount value = charStatisticsMap.putIfAbsent(ch, new CharCount(ch, new AtomicLong(1)));
 
                 if (value != null) {
-                    value.getCount().incrementAndGet();
+                    value.increment();
                 }
             }
         }

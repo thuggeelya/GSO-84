@@ -1,7 +1,10 @@
 package org.example;
 
 import org.junit.Test;
-import org.statistics.*;
+import org.statistics.CharCount;
+import org.statistics.CharStatisticsCollector;
+import org.statistics.CharStatisticsWriter;
+import org.statistics.FileReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,7 +61,7 @@ public class CharStatisticsTest {
     }
 
     private void checkMapsEquality(String inputFile, String outputFile, Map<Character, CharCount> mapToCompare) {
-        ICharStatisticsCollector collector = new CharStatisticsCollector();
+        CharStatisticsCollector collector = new CharStatisticsCollector();
         FileReader fileReader = new FileReader(inputFile, collector);
         fileReader.readFile();
         new CharStatisticsWriter(collector.getValues(), outputFile).writeCharStatistics();

@@ -21,12 +21,12 @@ public class CharStatisticsWriter {
         long totalCharsCount = 0;
 
         for (CharCount charCount : charCountList) {
-            totalCharsCount += charCount.getCount().get();
+            totalCharsCount += charCount.getCount();
         }
 
         try (FileWriter writer = new FileWriter(fullOutputFileName)) {
             for (CharCount charCount : charCountList) {
-                long count = charCount.getCount().get();
+                long count = charCount.getCount();
                 double percentage = BigDecimal.valueOf(100d * count / totalCharsCount).setScale(1, RoundingMode.HALF_UP).doubleValue();
                 writer.write("'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count) + System.lineSeparator());
             }

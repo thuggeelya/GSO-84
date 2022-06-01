@@ -17,8 +17,8 @@ public class CharCount implements Comparable<CharCount> {
         return ch;
     }
 
-    public AtomicLong getCount() {
-        return count;
+    public long getCount() {
+        return count.get();
     }
 
     public void increment() {
@@ -40,7 +40,7 @@ public class CharCount implements Comparable<CharCount> {
 
     @Override
     public int compareTo(CharCount o) {
-        int result = Long.compare(o.getCount().get(), count.get());
+        int result = Long.compare(o.getCount(), getCount());
         return result != 0 ? result : Character.compare(ch, o.getCh());
     }
 
