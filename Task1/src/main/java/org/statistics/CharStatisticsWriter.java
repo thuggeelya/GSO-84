@@ -30,12 +30,11 @@ public class CharStatisticsWriter {
         for (CharCount charCount : charCountList) {
             long count = charCount.getCount().get();
             double percentage = BigDecimal.valueOf(100d * count / charsNumber).setScale(1, RoundingMode.HALF_UP).doubleValue();
-            String sb = "'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count);
-            lines.add(sb);
+            lines.add("'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count));
         }
 
         try {
-            Files.write(Paths.get(this.fullOutputFileName), lines);
+            Files.write(Paths.get(fullOutputFileName), lines);
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());
         }

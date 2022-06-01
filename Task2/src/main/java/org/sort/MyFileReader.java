@@ -63,7 +63,6 @@ public class MyFileReader {
         char[] wordChars;
         boolean hasLetters;
         char c;
-        int lastIndexOfHyphen;
         int wordLength;
         String tempWord;
 
@@ -76,7 +75,6 @@ public class MyFileReader {
                 tempWord = "";
                 wordChars = word.toCharArray();
                 hasLetters = false;
-                lastIndexOfHyphen = word.lastIndexOf('-');
                 wordLength = word.length();
 
                 for (int i = 0; i < wordLength; i++) {
@@ -84,9 +82,9 @@ public class MyFileReader {
 
                     if (Character.isLetterOrDigit(c)
                             || ((c == '-') && (i != 0) && (i != wordLength - 1))
-                            || (lastIndexOfHyphen == 0)) {
+                            || (word.lastIndexOf('-') == 0)) {
                         tempWord = ((c == '-') && !hasLetters && !tempWord.isEmpty())
-                                ? saveAndResetIfPresents(tempWord)
+                                ? saveAndResetIfPresents(tempWord) // a number
                                 : tempWord.concat(String.valueOf(c));
                         hasLetters = Character.isLetter(c) || hasLetters;
                     } else if (i < wordLength - 1) {
