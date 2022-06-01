@@ -19,8 +19,8 @@ public class SortFirstLetterCodeDigitsSum implements ISortingStrategy {
 
         int sum = 0;
 
-        for (char c : String.valueOf(n).toCharArray()) {
-            sum += Integer.parseInt(String.valueOf(c));
+        for (int c : String.valueOf(n).toCharArray()) {
+            sum += c;
         }
 
         return sum;

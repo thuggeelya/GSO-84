@@ -76,9 +76,9 @@ public class SortByInputTest {
             add("окружает");
             add("постоянно");
             add("хаос");
+            add("404");
             add("boo-boo");
             add("boo404");
-            add("404");
         }
     };
 
