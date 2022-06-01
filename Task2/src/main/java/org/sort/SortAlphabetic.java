@@ -9,6 +9,4 @@ public class SortAlphabetic implements ISortingStrategy {
     public Comparator<String> getSortingStrategy() {
         return Comparator.naturalOrder();
     }
-
-
 }
