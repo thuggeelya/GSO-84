@@ -24,12 +24,18 @@ public class Application {
 
         try {
             Class<?> c = Class.forName(fullyQualifiedClass);
-            ISortingStrategy instance = (ISortingStrategy) c.getDeclaredConstructor().newInstance();
-            Dictionary dictionary = new Dictionary();
-            MyFileReader reader = new MyFileReader(inputFile, dictionary);
-            reader.readFile();
-            List<String> sortedWords = instance.sort(dictionary);
-            sortedWords.forEach(System.out::println);
+            Object o = c.getDeclaredConstructor().newInstance();
+
+            if (o instanceof ISortingStrategy) {
+                ISortingStrategy wordSorter = (ISortingStrategy) o;
+                Dictionary dictionary = new Dictionary();
+                MyFileReader reader = new MyFileReader(inputFile, dictionary);
+                reader.readFile();
+                List<String> sortedWords = wordSorter.sort(dictionary);
+                sortedWords.forEach(System.out::println);
+            } else {
+                throw new ClassNotFoundException("No such sorting class");
+            }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
                  InvocationTargetException e) {
             Logger.getGlobal().severe(e.getMessage());

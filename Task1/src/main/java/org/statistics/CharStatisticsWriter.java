@@ -1,11 +1,9 @@
 package org.statistics;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,23 +18,21 @@ public class CharStatisticsWriter {
     }
 
     public void writeCharStatistics() {
-        List<String> lines = new ArrayList<>();
-        long charsNumber = 0;
+        long totalCharsCount = 0;
 
         for (CharCount charCount : charCountList) {
-            charsNumber += charCount.getCount().get();
+            totalCharsCount += charCount.getCount().get();
         }
 
-        for (CharCount charCount : charCountList) {
-            long count = charCount.getCount().get();
-            double percentage = BigDecimal.valueOf(100d * count / charsNumber).setScale(1, RoundingMode.HALF_UP).doubleValue();
-            lines.add("'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count));
-        }
-
-        try {
-            Files.write(Paths.get(fullOutputFileName), lines);
+        try (FileWriter writer = new FileWriter(fullOutputFileName)) {
+            for (CharCount charCount : charCountList) {
+                long count = charCount.getCount().get();
+                double percentage = BigDecimal.valueOf(100d * count / totalCharsCount).setScale(1, RoundingMode.HALF_UP).doubleValue();
+                writer.write("'" + charCount.getCh() + "'" + "(" + percentage + "%): " + "#".repeat((int) count) + System.lineSeparator());
+            }
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());
         }
+
     }
 }

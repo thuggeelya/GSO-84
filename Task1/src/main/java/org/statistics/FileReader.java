@@ -18,8 +18,10 @@ public class FileReader {
 
     public void readFile() {
         try (InputStream is = new BufferedInputStream(new FileInputStream(this.fullFileName))) {
-            while (is.available() > 0) {
-                collector.collect((char) is.read());
+            int next;
+
+            while ((next = is.read()) != -1) {
+                collector.collect((char) next);
             }
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());

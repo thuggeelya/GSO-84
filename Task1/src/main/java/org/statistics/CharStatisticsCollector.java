@@ -15,11 +15,18 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
     @Override
     public void collect(Character ch) {
         if (!ch.equals('\n')) {
-            CharCount value = map.putIfAbsent(ch, new CharCount(ch, new AtomicLong(1)));
+            CharCount charCount = map.get(ch);
 
-            if (value != null) {
-                value.getCount().incrementAndGet();
+            if(charCount == null) {
+                CharCount newCharCount = new CharCount(ch, new AtomicLong(0));
+                charCount = map.putIfAbsent(ch, newCharCount);
+
+                if (charCount == null) {
+                    charCount = newCharCount;
+                }
             }
+
+            charCount.increment();
         }
     }
 
