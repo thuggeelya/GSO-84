@@ -16,10 +16,6 @@ public class FileReader {
         this.collector = collector;
     }
 
-    public CharStatisticsCollector getCollector() {
-        return (CharStatisticsCollector) collector;
-    }
-
     public void readFile() {
         try (InputStream is = new BufferedInputStream(new FileInputStream(this.fullFileName))) {
             while (is.available() > 0) {

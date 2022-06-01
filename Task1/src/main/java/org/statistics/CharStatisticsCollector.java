@@ -7,6 +7,7 @@ public class CharStatisticsCollector implements ICharStatisticsCollector {
 
     private final Map<Character, CharCount> map = new HashMap<>();
 
+    @Override
     public Map<Character, CharCount> getMap() {
         return map;
     }

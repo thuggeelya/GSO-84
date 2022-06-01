@@ -62,7 +62,7 @@ public class CharStatisticsTest {
         FileReader fileReader = new FileReader(inputFile, collector);
         fileReader.readFile();
         new CharStatisticsWriter(collector.getValues(), outputFile).writeCharStatistics();
-        assertEquals(mapToCompare, fileReader.getCollector().getMap());
+        assertEquals(mapToCompare, collector.getMap());
     }
 
     private void deleteFiles(Path... paths) throws IOException {
