@@ -85,7 +85,7 @@ public class SortByInputTest {
     private static final String INPUT_FILE = "src/test/resources/input.txt";
 
     /**
-     * Compares the sorting using arrays known in advance.
+     * Compares the sorting using information known in advance.
      *
      * @throws ClassNotFoundException if fullyQualifiedClass is missing
      */
